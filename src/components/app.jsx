@@ -130,7 +130,7 @@ const App = () => {
   return (
     <Fragment>
       <Header onThemeChange={handleThemeChange} theme={theme} />
-      <main className="bg-main pb-5 pt-4 pt-md-5 bg-transition">
+      <main className="bg-main pb-5 pt-4 bg-transition">
         <div className="container">
           <Routes>
             <Route

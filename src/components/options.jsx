@@ -14,7 +14,7 @@ const Options = ({ theme, onSearch, searchValue, onFilter, filterValue }) => {
   };
 
   return (
-    <div className="sticky-top bg-main mb-0 mb-4 mb-md-5 py-3">
+    <div className="sticky-top bg-main mb-0 mb-4 py-4">
       <form
         className="row m-0 justify-content-between align-items-center gap-4 pb-2 pb-md-0"
         onSubmit={(e) => e.preventDefault()}
