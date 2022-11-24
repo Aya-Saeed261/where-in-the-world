@@ -5,6 +5,7 @@ import { Fragment, useEffect, useState } from "react";
 import Header from "./header";
 import Homepage from "./homepage";
 import Country from "./country";
+import GoToTopBtn from "./goToTopBtn";
 
 const App = () => {
   const increment = 8;
@@ -15,15 +16,14 @@ const App = () => {
   const [filteredData, setFilteredData] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [filterValue, setFilterValue] = useState("Filter by Region");
-  const [showMoreBtn, setShowMoreBtn] = useState(false);
   const [showLoader, setShowLoader] = useState(false);
+  const [showGoToTopBtn, setShowGoToTopBtn] = useState(false);
 
   const handleDataChange = (newData, newNumOfShownData = numOfShownData) => {
     setFilteredData(newData);
     setNumOfShownData(newNumOfShownData);
     const newShownData = newData.slice(0, newNumOfShownData);
     setShownData(newShownData);
-    checkForMoreContent(newData, newShownData);
   };
 
   const handleFilter = (filter) => {
@@ -63,15 +63,8 @@ const App = () => {
     handleDataChange(filtered);
   };
 
-  const checkForMoreContent = (fullData, displayedData) => {
-    if (fullData.length <= displayedData.length) {
-      setShowMoreBtn(false);
-    } else {
-      setShowMoreBtn(true);
-    }
-  };
-
   const handleLoadMore = () => {
+    if (shownData.length < numOfShownData) return;
     const newNum = numOfShownData + increment;
     handleDataChange(filteredData, newNum);
   };
@@ -115,11 +108,37 @@ const App = () => {
         setData(data);
         setFilteredData(data);
         setShownData(data.slice(0, numOfShownData));
-        setShowMoreBtn(true);
       })
       .then(() => setShowLoader(false))
       .catch((error) => console.log(error));
   };
+
+  const checkForMoreContent = () => {
+    const scrollTop = document.documentElement.scrollTop;
+    const scrollHeight = document.documentElement.scrollHeight;
+    const clientHeight = document.documentElement.clientHeight;
+    if (scrollTop + clientHeight >= scrollHeight) {
+      handleLoadMore();
+    }
+  };
+
+  const checkGoToTopBtn = () => {
+    if (
+      (window.scrollY > 400 && showGoToTopBtn === true) ||
+      (window.scrollY <= 400 && showGoToTopBtn === false)
+    )
+      return;
+    if (window.scrollY > 400) {
+      setShowGoToTopBtn(true);
+    } else {
+      setShowGoToTopBtn(false);
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", checkGoToTopBtn);
+    return () => window.removeEventListener("scroll", checkGoToTopBtn);
+  }, [window.scrollY]);
 
   useEffect(() => {
     if (!checkForStoredTheme()) checkSystemTheme();
@@ -130,7 +149,8 @@ const App = () => {
   return (
     <Fragment>
       <Header onThemeChange={handleThemeChange} theme={theme} />
-      <main className="bg-main pb-5 pt-4 bg-transition">
+      <main className="bg-main pb-5 pt-4 pt-md-5 bg-transition position-relative">
+        <GoToTopBtn show={showGoToTopBtn} />
         <div className="container">
           <Routes>
             <Route
@@ -139,13 +159,13 @@ const App = () => {
                 <Homepage
                   theme={theme}
                   data={shownData}
-                  onLoadMore={handleLoadMore}
                   onSearch={handleSearch}
                   searchValue={searchValue}
-                  showMoreBtn={showMoreBtn}
                   onFilter={handleFilter}
                   filterValue={filterValue}
                   showLoader={showLoader}
+                  numOfShownData={numOfShownData}
+                  onScroll={checkForMoreContent}
                 />
               }
             />

@@ -35,12 +35,12 @@ const Card = ({ country, searchValue }) => {
     <NavLink
       to={`/${name.replaceAll(" ", "-")}`}
       state={{ from: country }}
-      className="text-decoration-none shadow-element card-container"
+      className="card-container text-decoration-none d-block shadow-element"
     >
       <div className="card border-0 bg-element text-color bg-transition">
         <img
           src={country.flags.svg}
-          className="card-img-top card-image"
+          className="card-image card-img-top"
           alt={`${name} flag`}
         />
         <div className="card-body pt-4 px-4">

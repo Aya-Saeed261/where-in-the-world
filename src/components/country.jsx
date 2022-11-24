@@ -37,7 +37,7 @@ const Country = ({ theme, allCountries }) => {
       <button
         type="button"
         onClick={() => navigate(-1)}
-        className="btn back-btn text-color bg-element mt-4 mb-5 ms-4 ms-lg-0 py-2 rounded-2 shadow-element d-flex align-items-center gap-2"
+        className="btn back-btn text-color bg-element mt-3 mt-md-4 mb-5 ms-3 ms-sm-4 ms-lg-0 py-2 rounded-2 shadow-element d-flex align-items-center gap-2"
       >
         <img
           src={theme === "dark" ? arrowDark : arrowLight}
@@ -47,7 +47,7 @@ const Country = ({ theme, allCountries }) => {
         <span>Back</span>
       </button>
       {country ? (
-        <div className="row m-0 pt-4 pb-4 pb-lg-0 px-4 px-lg-0 justify-content-between align-items-center">
+        <div className="row m-0 pt-3 pt-sm-4 pb-4 pb-lg-0 px-3 px-sm-4 px-lg-0 justify-content-between align-items-center">
           <div className="col-lg-6 px-0 pe-lg-4 mb-5 mb-lg-0">
             <img
               src={country.flags.svg}

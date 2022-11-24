@@ -9,20 +9,25 @@ import Loader from "./loader";
 const Homepage = ({
   theme,
   data,
-  onLoadMore,
   onSearch,
   searchValue,
   onFilter,
   filterValue,
-  showMoreBtn,
   showLoader,
+  numOfShownData,
+  onScroll,
 }) => {
   const parentRef = useRef();
   useEffect(() => {
     if (parentRef.current) {
       autoAnimate(parentRef.current);
     }
-  }, [parentRef]);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [data, numOfShownData]);
 
   return (
     <div className="homepage">
@@ -58,17 +63,6 @@ const Homepage = ({
             ""
           )}
         </div>
-        {showMoreBtn ? (
-          <button
-            type="button"
-            className="load-more-btn btn text-color d-block mt-5 mx-auto text-capitalize fs-5 fw-semibold px-4 shadow-element"
-            onClick={onLoadMore}
-          >
-            load more
-          </button>
-        ) : (
-          ""
-        )}
       </Fragment>
     </div>
   );
