@@ -1,17 +1,17 @@
 {
   "files": {
-    "main.css": "/where-in-the-world/static/css/main.3b573849.css",
-    "main.js": "/where-in-the-world/static/js/main.8ad4aed8.js",
+    "main.css": "/where-in-the-world/static/css/main.3517f317.css",
+    "main.js": "/where-in-the-world/static/js/main.1a420821.js",
     "index.html": "/where-in-the-world/index.html",
     "static/media/left-arrow-light-mode.svg": "/where-in-the-world/static/media/left-arrow-light-mode.fc91ebc189ee61b7b8c650712d1574aa.svg",
     "static/media/left-arrow-dark-mode.svg": "/where-in-the-world/static/media/left-arrow-dark-mode.8031243815871d9359cc97cf827599e1.svg",
     "static/media/icon-sun.svg": "/where-in-the-world/static/media/icon-sun.31ab4f202c4f9cf393faee434679d46a.svg",
     "static/media/icon-moon.svg": "/where-in-the-world/static/media/icon-moon.31c7b6e253a460872b1ff0b48c5d1fcd.svg",
-    "main.3b573849.css.map": "/where-in-the-world/static/css/main.3b573849.css.map",
-    "main.8ad4aed8.js.map": "/where-in-the-world/static/js/main.8ad4aed8.js.map"
+    "main.3517f317.css.map": "/where-in-the-world/static/css/main.3517f317.css.map",
+    "main.1a420821.js.map": "/where-in-the-world/static/js/main.1a420821.js.map"
   },
   "entrypoints": [
-    "static/css/main.3b573849.css",
-    "static/js/main.8ad4aed8.js"
+    "static/css/main.3517f317.css",
+    "static/js/main.1a420821.js"
   ]
 }
