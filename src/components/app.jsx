@@ -5,7 +5,6 @@ import { Fragment, useEffect, useState } from "react";
 import Header from "./header";
 import Homepage from "./homepage";
 import Country from "./country";
-import GoToTopBtn from "./goToTopBtn";
 
 const App = () => {
   const increment = 8;
@@ -17,7 +16,6 @@ const App = () => {
   const [searchValue, setSearchValue] = useState("");
   const [filterValue, setFilterValue] = useState("Filter by Region");
   const [showLoader, setShowLoader] = useState(false);
-  const [showGoToTopBtn, setShowGoToTopBtn] = useState(false);
 
   const handleDataChange = (newData, newNumOfShownData = numOfShownData) => {
     setFilteredData(newData);
@@ -64,7 +62,7 @@ const App = () => {
   };
 
   const handleLoadMore = () => {
-    if (shownData.length < numOfShownData) return;
+    if (shownData.length === filteredData.length) return;
     const newNum = numOfShownData + increment;
     handleDataChange(filteredData, newNum);
   };
@@ -113,33 +111,6 @@ const App = () => {
       .catch((error) => console.log(error));
   };
 
-  const checkForMoreContent = () => {
-    const scrollTop = document.documentElement.scrollTop;
-    const scrollHeight = document.documentElement.scrollHeight;
-    const clientHeight = document.documentElement.clientHeight;
-    if (scrollTop + clientHeight >= scrollHeight) {
-      handleLoadMore();
-    }
-  };
-
-  const checkGoToTopBtn = () => {
-    if (
-      (window.scrollY > 400 && showGoToTopBtn === true) ||
-      (window.scrollY <= 400 && showGoToTopBtn === false)
-    )
-      return;
-    if (window.scrollY > 400) {
-      setShowGoToTopBtn(true);
-    } else {
-      setShowGoToTopBtn(false);
-    }
-  };
-
-  useEffect(() => {
-    window.addEventListener("scroll", checkGoToTopBtn);
-    return () => window.removeEventListener("scroll", checkGoToTopBtn);
-  }, [window.scrollY]);
-
   useEffect(() => {
     if (!checkForStoredTheme()) checkSystemTheme();
     setShowLoader(true);
@@ -150,7 +121,6 @@ const App = () => {
     <Fragment>
       <Header onThemeChange={handleThemeChange} theme={theme} />
       <main className="bg-main pb-5 pt-4 pt-md-5 bg-transition position-relative">
-        <GoToTopBtn show={showGoToTopBtn} />
         <div className="container">
           <Routes>
             <Route
@@ -164,8 +134,7 @@ const App = () => {
                   onFilter={handleFilter}
                   filterValue={filterValue}
                   showLoader={showLoader}
-                  numOfShownData={numOfShownData}
-                  onScroll={checkForMoreContent}
+                  handleLoadMore={handleLoadMore}
                 />
               }
             />

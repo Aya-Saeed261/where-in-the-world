@@ -1,10 +1,11 @@
-import { useEffect, useRef, Fragment } from "react";
+import { useEffect, useRef, Fragment, useState } from "react";
 import autoAnimate from "@formkit/auto-animate";
 
 // Imported components
 import Options from "./options";
 import Card from "./card";
 import Loader from "./loader";
+import GoToTopBtn from "./goToTopBtn";
 
 const Homepage = ({
   theme,
@@ -14,9 +15,10 @@ const Homepage = ({
   onFilter,
   filterValue,
   showLoader,
-  numOfShownData,
-  onScroll,
+  handleLoadMore,
 }) => {
+  const [showGoToTopBtn, setShowGoToTopBtn] = useState(false);
+
   const parentRef = useRef();
   useEffect(() => {
     if (parentRef.current) {
@@ -25,12 +27,38 @@ const Homepage = ({
   }, []);
 
   useEffect(() => {
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, [data, numOfShownData]);
+    const checkGoToTopBtn = () => {
+      if (
+        (window.scrollY > 400 && showGoToTopBtn === true) ||
+        (window.scrollY <= 400 && showGoToTopBtn === false)
+      )
+        return;
+      if (window.scrollY > 400) {
+        setShowGoToTopBtn(true);
+      } else {
+        setShowGoToTopBtn(false);
+      }
+    };
+    window.addEventListener("scroll", checkGoToTopBtn);
+    return () => window.removeEventListener("scroll", checkGoToTopBtn);
+  }, [window.scrollY]);
+
+  useEffect(() => {
+    const checkForMoreContent = () => {
+      const scrollTop = Math.ceil(document.documentElement.scrollTop);
+      const scrollHeight = document.documentElement.scrollHeight;
+      const clientHeight = window.innerHeight;
+      if (scrollTop + clientHeight + 10 >= scrollHeight) {
+        handleLoadMore();
+      }
+    };
+    window.addEventListener("scroll", checkForMoreContent);
+    return () => window.removeEventListener("scroll", checkForMoreContent);
+  }, [data]);
 
   return (
     <div className="homepage">
+      <GoToTopBtn show={showGoToTopBtn} />
       <Options
         theme={theme}
         onSearch={onSearch}
