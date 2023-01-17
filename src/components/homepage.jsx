@@ -1,4 +1,6 @@
 import { useEffect, useRef, Fragment, useState } from "react";
+
+// animation
 import autoAnimate from "@formkit/auto-animate";
 
 // Imported components

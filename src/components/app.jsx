@@ -1,5 +1,7 @@
-import { Routes, Route } from "react-router-dom";
 import { Fragment, useEffect, useState } from "react";
+
+// react router
+import { Routes, Route } from "react-router-dom";
 
 // Imported components
 import Header from "./header";
@@ -7,15 +9,15 @@ import Homepage from "./homepage";
 import Country from "./country";
 
 const App = () => {
-  const increment = 8;
   const [theme, setTheme] = useState("dark");
   const [data, setData] = useState([]);
-  const [numOfShownData, setNumOfShownData] = useState(increment);
+  const [numOfShownData, setNumOfShownData] = useState(8);
   const [shownData, setShownData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [filterValue, setFilterValue] = useState("Filter by Region");
   const [showLoader, setShowLoader] = useState(false);
+  const increment = 8;
 
   const handleDataChange = (newData, newNumOfShownData = numOfShownData) => {
     setFilteredData(newData);

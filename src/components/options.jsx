@@ -1,13 +1,13 @@
-const regions = [
-  { name: "All", id: 0 },
-  { name: "Africa", id: 1 },
-  { name: "Americas", id: 2 },
-  { name: "Asia", id: 3 },
-  { name: "Europe", id: 4 },
-  { name: "Oceania", id: 5 },
-];
-
 const Options = ({ theme, onSearch, searchValue, onFilter, filterValue }) => {
+  const regions = [
+    { name: "All", id: 0 },
+    { name: "Africa", id: 1 },
+    { name: "Americas", id: 2 },
+    { name: "Asia", id: 3 },
+    { name: "Europe", id: 4 },
+    { name: "Oceania", id: 5 },
+  ];
+
   const handleSearch = (e) => {
     const newValue = e.target.value.toLowerCase();
     onSearch(newValue);

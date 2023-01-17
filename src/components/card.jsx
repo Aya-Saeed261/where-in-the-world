@@ -1,8 +1,10 @@
+import { Fragment, useEffect, useState } from "react";
+
+// react router
 import { NavLink } from "react-router-dom";
-import { Fragment } from "react";
 
 const Card = ({ country, searchValue }) => {
-  const name = country.name.common;
+  const [shownName, setShownName] = useState("");
 
   const highlightMatch = (name) => {
     const regex = new RegExp(searchValue, "i");
@@ -26,22 +28,29 @@ const Card = ({ country, searchValue }) => {
     });
     return highlighted;
   };
-  let shownName = name;
-  if (searchValue.length > 0) {
-    shownName = <Fragment>{highlightMatch(name)}</Fragment>;
-  }
+
+  useEffect(() => {
+    if (country) {
+      let shownName = country.name.common;
+      if (searchValue.length > 0) {
+        shownName = highlightMatch(shownName);
+      }
+      setShownName(shownName);
+    }
+  }, [country, searchValue]);
 
   return (
     <NavLink
-      to={`/${name.replaceAll(" ", "-")}`}
+      to={`/${country.name.common.replaceAll(" ", "-")}`}
       state={{ from: country }}
       className="card-container text-decoration-none d-block shadow-element"
+      onClick={() => window.scrollTo({ top: 0, left: 0, behavior: "smooth" })}
     >
       <div className="card border-0 bg-element text-color bg-transition">
         <img
           src={country.flags.svg}
           className="card-image card-img-top"
-          alt={`${name} flag`}
+          alt={`${country.name.common} flag`}
         />
         <div className="card-body pt-4 px-4">
           <h2 className="card-title fs-5 fw-semibold mb-3">{shownName}</h2>

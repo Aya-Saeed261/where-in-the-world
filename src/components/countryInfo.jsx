@@ -1,3 +1,4 @@
+// Imported components
 import Border from "./countryBorder";
 
 const Info = ({ country, allCountries }) => {

@@ -1,5 +1,7 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Fragment, useEffect, useState } from "react";
+
+// react router
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 // Imported components
 import Info from "./countryInfo";
@@ -10,11 +12,11 @@ import arrowLight from "../images/left-arrow-light-mode.svg";
 import arrowDark from "../images/left-arrow-dark-mode.svg";
 
 const Country = ({ theme, allCountries }) => {
-  const navigate = useNavigate();
-  const { state } = useLocation();
   const { name: paramName } = useParams();
   const [country, setCountry] = useState(null);
   const [showLoader, setShowLoader] = useState(true);
+  const navigate = useNavigate();
+  const { state } = useLocation();
 
   useEffect(() => {
     if (state) {
